@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+/* 		body{
+			width:1500px;
+			height: 2000px;
+		}
+		 */
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid red;
+			margin: 30px;
+		}
+	</style>
+	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+	<div></div>
+	<script>
+		window.onload=function(){
+			console.log($(document));
+			console.log($(window));
+			var div=document.getElementsByTagName('div')[0];
+			console.log(div.offsetLeft);
+			console.log(div.offsetHeight);
+			console.log($('div').innerWidth());
+			// console.log(window.innerWidth);
+			// console.log(document.documentElement.clientWidth);
+			// console.log(document.body.clientWidth);
+			// console.log(window.outerWidth)
+			// console.log('jquery');
+			// console.log($(document).width());
+			// console.log($('body').innerWidth());
+			// console.log($('body').outerWidth());
+		}
+	</script>
+</body>
+</html>
