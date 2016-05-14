@@ -1,0 +1,13 @@
+// for mobile
+@include respond-to(sm) {
+	.sidebar{
+		left: -300px;
+	}
+	.main-content{
+		margin-left:0;
+		width:100%;
+	}
+	.hamburger-wrapper{
+		display:block
+	}
+}

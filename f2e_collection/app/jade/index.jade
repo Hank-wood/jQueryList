@@ -1,0 +1,33 @@
+extends ./_utils/layout.jade
+block content
+  div.fullheight
+    div.hamburger-wrapper#open-sidebar
+      div.hamburger-arrow
+        div.before
+        div.after 
+    div.sidebar#sidebar
+      div.sidebar-content
+        div.sidebar-header
+          a(href="/")
+            h1(class="sidebar-header-title") 前端收藏夹
+        ul.sidebar-nav#sidebar-nav
+          each val, index in navItems
+            if index=="videos"
+              li.active(id='navitem-' + index)
+                a(href="")= val
+            else
+              li(id='navitem-' + index)
+                a(href="")= val
+    div(class="main-content" id="main-content")
+      div.content
+        div.section
+          include ./_partial/videos.jade
+        div.section
+          include ./_partial/materials.jade
+        div.section
+          include ./_partial/tools.jade
+        div.section
+          include ./_partial/others.jade
+
+  
+  

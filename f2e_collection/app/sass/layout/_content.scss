@@ -1,0 +1,35 @@
+.main-content{
+	margin-left: 300px;
+	padding:25px;
+	background-color:#efefef;
+}
+.content{
+	
+}
+.section {
+	background-color:#fff;
+	padding:1em;
+	margin-bottom:2em;
+	.section_header{
+		border-left:2px solid #66C6FD;
+		// margin-left: 0.8em;
+		padding-left:0.5em;
+		// margin-top:0;
+		cursor:pointer
+	}
+}
+.links-list{
+	margin-left: 20px;
+    padding: 2px 0px 20px 120px;
+    position: relative;
+    border-bottom: 1px dashed #bbb;
+	.links-title{
+		position: absolute;
+		left:0;
+		top:0;
+	}
+	.links-item{
+		display:inline-block;
+		margin-left: 0.5em;
+	}
+}
