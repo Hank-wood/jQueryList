@@ -139,13 +139,13 @@ body {
 /* mask */
 /* improt */
 .overlay{
-	position: fixed;
+	position: absolute;
 	left:0;
 	right:0;
 	top:0;
 	bottom:0;
 	background-color:#3c3c3c;
-	opacity:0;
+	opacity:0.9;
 	text-align:center;
 	display:none;
 }

@@ -53,52 +53,17 @@ $(function() {
                             }
                             // win
                             if ($('.matched').length == $('.card').length) {
-                                setTimeout(that.win(), 500)
+                                setTimeout(that.win(), 2000);
                             }
                         }
-                    })
-                    //reset   	
-                this.$restart.on('click', function() {
-                        //imo
-                    })
-                    //level
-                this.level();
+                    })               
             },
             win: function() {
-                this.$overlay.animate({ display: 'block' }, 'normal');
-            },
-            // timeout: function(leveltime,that) {
-            // 	var time=[20,40,60]
-            // 	var timeL=time[leveltime-1]
-            // 	    that.$time.html(timeL);
-            //     if(that.intervalId) { clearInterval(that.intervalId); }
-            //         console.log(that.intervalId);
-            //     that.intervalId=setInterval(function(){
-            // 		timeL-=1;
-            // 		that.$time.html(timeL)
-            // 		if (timeL==0) {
-            // 			if(that.intervalId) { clearInterval(that.intervalId); }
-            // 			alert('game over');
-            // 			return false;
-            // 		}
-            // 	},1000)
-            // },
-            level: function() {
-                var that = this;
-                //level
-                this.$level.on('click', function() {
-                    $levelIndex = parseInt($(this).attr('data-level'));
-                    $(this).addClass('active').siblings().removeClass('active');
-                    if ($levelIndex == 1) {
-                        var levelcard1 = cards.slice(0, 4);
-                            that.init(levelcard1);
-                    } else if ($levelIndex == 2) {
-                        var levelcard2 = cards.slice(0, 8);
-                        	that.init(levelcard2)
-                    } else if ($levelIndex == 3) {
-                        var levelcard3 = cards;
-                        	that.init(levelcard3);
-                    }
+                var that=this;
+                this.$overlay.css('display','block');
+                 this.$restart.on('click', function() {
+                     that.init(cards)
+                     that.$overlay.css('display','none')  
                 })
             }
         }
@@ -115,6 +80,7 @@ $(function() {
         name: "html5",
         img: "img/html5-logo.png",
         id: 3
+    
     }, {
         name: "jquery",
         img: "img/jquery-logo.png",

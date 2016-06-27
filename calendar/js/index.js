@@ -96,11 +96,6 @@
                     console.log(year);
                     that.renderDay(month, year);
                 });
-                //双击日期添加任务task;
-                $(document).on('dblclick', 'span.datelist', function(event) {
-                    event.preventDefault();
-                    if ($(this).html() != '') {}
-                });
             }
         }
         calendar.init();
