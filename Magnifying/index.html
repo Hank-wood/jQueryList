@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magnifying</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        .magnify{
+            width: 200px;
+            margin: 50px auto;
+            position: relative;
+        }
+        .large{
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+            position: absolute;
+            background: url('iphone.jpg') no-repeat;
+            display: none;
+            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 
+                0 0 7px 7px rgba(0, 0, 0, 0.25), 
+                inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        }
+        .small{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- let us begin -->
+    <div class="magnify">
+        <div class="large"></div>
+        <img src="iphone.jpg" alt="pic" width='200px' class="small">
+    </div>
+    <script>
+        $(function(){
+            var native_width=0,
+                native_height=0;
+            $('.magnify').mousemove(function(e){
+                //首次移入
+                if (!native_height && !native_height) {
+                    var Img=new Image();
+                        Img.src=$('.small').attr('src');
+                    native_height=Img.height;
+                    native_width=Img.width;
+                }else{
+                    var object_offset=$('.magnify').offset();
+                    var mx=e.pageX-object_offset.left;
+                    var my=e.pageY-object_offset.top;
+                    //显示放大镜
+                    if (mx<$('.magnify').width() && mx>0 && my>0 && my<$('.magnify').height()) {
+                        $(".large").fadeIn(100);
+                    }else{
+                        $('.large').fadeOut(100)
+                    }
+                    if ($('.large').is(':visible')) {
+                        //计算比值
+                        var bgx=Math.round((mx*native_width)/$('.small').width()-$('.large').width()/2)*-1;
+                        var bgy=Math.round((my*native_height)/$('.small').height()-$('.large').height()/2)*-1;
+                    }
+                    var bgp=bgx+"px"+" "+bgy+"px";
+                    var px=mx-$('.large').width()/2;
+                    var py=my-$('.large').height()/2;
+                   $(".large").css({left: px, top: py, backgroundPosition: bgp});
+                }
+            });
+        })
+    </script>
+</body>
+</html>

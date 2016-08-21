@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: #ccc;
+    min-height: 100%;
+    font-family: "Arial", sans-serif;
+}
+
+.wrap {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    padding-bottom: 20px;
+}
+.grade{
+	position: fixed;
+	width:200px;
+	height:100%;
+	text-align:center;
+	border-right:1px solid #6B6767;
+	box-shadow:1px 1px 3px #000;
+}
+.grade p{
+	padding-top:40px;
+	font-size:20px;
+}
+.grade li{
+	/* padding-top:50px; */
+	margin-top:30px;
+	padding:10px;
+	cursor:pointer;
+	transform:scale(0.9);
+	list-style:none;
+}
+.grade li.active{
+	background-color:#000;
+	color:#fff;
+}
+.grade li:hover{
+	transform:scale(1);
+}
+.game {
+    transform-style: preserve-3d;
+    perspective: 500px;
+    min-height: 100%;
+    height: 100%;
+	margin-left:200px;
+	padding:20px;
+	text-align:center;
+}
+
+@-webkit-keyframes matchAnim {
+    0% {
+        background: #bcffcc;
+    }
+    100% {
+        background: white;
+    }
+}
+
+@keyframes matchAnim {
+    0% {
+        background: #bcffcc;
+    }
+    100% {
+        background: white;
+    }
+}
+
+.card {
+    float: left;
+    /* width: 16.66666%; */
+    width:25%;
+    height: 16.66%;
+    padding: 5px;
+    text-align: center;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.card .inside {
+    width: 100%;
+    height: 100%;
+    display: block;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
+    background: white;
+}
+
+.card .inside.picked,
+.card .inside.matched {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+
+.card .inside.matched {
+    -webkit-animation: 1s matchAnim ease-in-out;
+    animation: 1s matchAnim ease-in-out;
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s;
+    /* background-color:yellow; */
+}
+
+.card .front-card,
+.card .back-card {
+    border: 1px solid black;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+.card .front-card img, .card .back-card img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+}
+.card .front-card {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+/* mask */
+/* improt */
+.overlay{
+	position: absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	background-color:#3c3c3c;
+	opacity:0.9;
+	text-align:center;
+	display:none;
+}
+.overlay .winer{
+	
+	font-size:30px;
+	color:#fff;
+	padding:100px 0 100px 0;
+}
+.overlay .restart{
+	border: 0;
+	background-color:#18EBE9;
+	padding: 15px;
+	color:#fff;
+	font-size:18px;
+}

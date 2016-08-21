@@ -1,0 +1,44 @@
+/*fullheight*/
+.fullheight{
+	width:100%
+}
+.sidebar{
+    max-width: 80%;
+    width: 300px;
+    background-color:$navBackground;
+    height: 100%;
+    font-size: $text-size;
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+.sidebar-content{
+	padding:15px;
+	.sidebar-header{
+		padding:10px;
+		border-bottom:1px solid #fff;
+		h1{
+			font-size:1.5em;
+		}
+	}
+	.sidebar-nav{
+		padding:10px;
+		li{
+			list-style: none;
+			padding:10px 10px 10px 0;
+			margin-bottom:10px;
+			text-indent: 0.2em;
+			&.active,&:hover{
+				background-color:#fff;
+				a{
+					color:#000;
+					font-weight: bold;
+				}
+			}
+
+		}
+	}
+}

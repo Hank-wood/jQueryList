@@ -1,0 +1,21 @@
+- var navItems = {"videos": "视频学习","marterials": "博客/社区/资讯","tools": "前端工具","frames": "主流框架", "other": "其他链接"};
+
+mixin listTitle(id)
+  if navItems[id] != "undefined"
+    h3(class="section_header" id= id)= navItems[id]
+  else
+    h3(class="section_header") id
+
+mixin dda(url, name, title)
+  if typeof(title) !== 'undefined'
+    a(class="tooltip" href=url title=title  target="_blank")= name
+  else
+    a(href=url  target="_blank")= name
+
+mixin dd(url, name, title)
+  dd.links-item
+    +dda(url, name, title)
+
+mixin dt(name)
+  dt.links-title.shadow-box= name
+

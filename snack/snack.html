@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>snack</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .container {
+        position: relative;
+    }
+    
+    .control {
+        position: absolute;
+        right: 100px;
+        top: 10px
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    td {
+        width: 10px;
+        height: 10px
+    }
+    
+    .grade {
+        margin: 10px 0;
+        font-size: 14px
+    }
+    
+    .snack {
+        background-color: lightgreen;
+    }
+    
+    .instruction p {
+        line-height: 1.8
+    }
+    
+    .food {
+        background-color: pink
+    }
+    
+    #score {
+        color: red;
+        margin: 0 5px
+    }
+    
+    .gscore {
+        font-weight: bold;
+        margin: 10px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- cell grid -->
+    <div class="container">
+        <div class="box">
+        </div>
+        <div class="control">
+            <p class="gscore">得分:<span id="score">0</span>分</p>
+            <div class="btn">
+                <button type="button" class="start">开始</button>
+                <button type="button" class="restart">重新开始</button>
+                <button type="button" class="stop">暂停</button>
+            </div>
+            <div class="grade">
+                <label>等级</label>
+                <select name="" id="select">
+                    <option value="">简单</option>
+                    <option value="">中等</option>
+                    <option value="">困难</option>
+                </select>
+            </div>
+            <div class="instruction">
+                游戏说明
+                <p>(1):点击开始游戏开始</p>
+                <p>(2):键盘的上下左右键移动小蛇</p>
+                <p>(3):每吃一个食物，分数增加1</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+function Snack(ele, score, width, height, size) {
+    this.$ele = $(ele);
+    this.$score = $(score);
+    this.width = width;
+    this.height = height;
+    this.size = size;
+    this.snackArr = [];
+    this.foodPos = [];
+    // 代表snack移动的方向
+    this.x = 0;
+    this.y = 1;
+    this.timer = null;
+    this.scoreNum = 0;
+    this.$startBtn = $('.start')
+    this.$restartBtn = $('.restart');
+    this.$stop = $('.stop');
+    // 默认的速度
+    this.speed = 300;
+    // 默认的等级
+    this.selectIndex = 0;
+}
+Snack.prototype = {
+    init: function() {
+        this.drawGird(this.size);
+        this.changeDiretion()
+        this.getStart();
+        this.getGrade();
+        this.stop();
+    },
+    getStart: function() {
+        var that = this;
+        this.$startBtn.on('click', function() {
+            that.moveSnake();
+            $(this).attr("disabled", "true");
+        })
+    },
+    stop: function() {
+        var that = this;
+        this.$stop.on('click', function() {
+            if ($(this).text() == "暂停") {
+                clearInterval(that.timer);
+                $(this).text('开始');
+            } else {
+                // debugger;
+                that.timer=setInterval(that.callBack.bind(that), that.speed)
+                 $(this).text('暂停');
+            }
+
+        })
+    },
+    reStart: function() {
+        var that = this;
+        // 清除现在蛇的位置
+        this.snackArr = [];
+        // 默认小蛇向右移动
+        this.x = 0;
+        this.y = 1;
+        for (var k = 0; k < 3; k++) {
+            this.snackArr[this.snackArr.length] = [3, k + 3]
+        }
+        this.$restartBtn.on('click', function() {
+            that.$score.text(0)
+            that.drawSanck();
+            that.drawFood();
+            that.moveSnake();
+        })
+    },
+    drawGird: function(size) {
+        // for table cell
+        var cellGrid = [];
+        this.$ele.css({
+            'width': this.width + 'px',
+            'height': this.height + 'px',
+            'border': '1px solid red',
+            'margin': 'auto'
+        });
+        cellGrid.push('<table>')
+        for (var i = 0; i < size; i++) {
+            cellGrid.push('<tr>')
+            for (var j = 0; j < size; j++) {
+                cellGrid.push('<td id="box_' + i + '_' + j + '"></td>')
+            }
+            cellGrid.push('</tr>')
+        }
+        cellGrid.push(('</table>'))
+        for (var k = 0; k < 3; k++) {
+            this.snackArr[this.snackArr.length] = [3, k + 3]
+        }
+        this.$ele.html(cellGrid.join(''));
+        this.drawFood();
+        this.drawSanck();
+    },
+    drawSanck: function() {
+        $('td').removeClass('snack');
+        for (var i = 0; i < this.snackArr.length; i++) {
+            $('#box_' + this.snackArr[i][0] + '_' + this.snackArr[i][1]).addClass('snack');
+        }
+    },
+    drawFood: function() {
+        $('td').removeClass('food')
+        var foodx = this.getRandom(this.size),
+            foody = this.getRandom(this.size);
+        for (var i in this.snackArr) {
+            if (this.snackArr[i][0] == foodx && this.snackArr[i][1] == foody) {
+                foodx = this.getRandom(this.size),
+                    foody = this.getRandom(this.size);
+            }
+        }
+        this.foodPos = [foodx, foody];
+        $('#box_' + foodx + '_' + foody).addClass('food');
+    },
+    changeDiretion: function() {
+        var that = this;
+        $(document).on('keydown', function(e) {
+            switch (e.which) {
+                case 37:
+                    if (that.y != 1) {
+                        that.x = 0;
+                        that.y = -1;
+                    }
+                    break;
+                case 38:
+                    if (that.x != 1) {
+                        that.x = -1;
+                        that.y = 0;
+                    }
+                    break;
+                case 39:
+                    if (that.y != -1) {
+                        that.x = 0;
+                        that.y = 1;
+                    }
+                    break;
+                case 40:
+                    if (that.x != -1) {
+                        that.x = 1;
+                        that.y = 0;
+                    }
+                    break;
+            }
+        })
+    },
+    callBack: function() {
+        var row = 0,
+            col = 0;
+        row = this.snackArr[this.snackArr.length - 1][0] + this.x;
+        col = this.snackArr[this.snackArr.length - 1][1] + this.y;
+        if (this.foodPos[0] == row && this.foodPos[1] == col) {
+            $("#box_" + row + "_" + col).removeClass('food');
+            this.drawFood();
+            this.scoreNum++;
+
+            this.getScore(this.scoreNum);
+        } else {
+            this.snackArr.shift();
+        }
+        if (col < 0 || col >= this.size || row < 0 || row >= this.size) {
+            alert('game over');
+            clearInterval(this.timer);
+            this.reStart();
+        } else {
+            this.snackArr.push([row, col])
+            this.drawSanck();
+        }
+    },
+    moveSnake: function() {
+        var that = this;
+
+        this.timer = setInterval(that.callBack.bind(that), that.speed)
+    },
+    getRandom: function(n) {
+        return Math.floor(Math.random() * n + 1)
+    },
+    getScore: function(num) {
+        this.$score.text(num)
+    },
+    getGrade: function() {
+        var that = this;
+        var speedNum = [300, 200, 100, 80, 50, 20];
+        $('#select').on('change', function() {
+            that.selectIndex = $(this).get(0).selectedIndex;
+            that.speed = speedNum[that.selectIndex];
+        })
+    }
+}
+var snack = new Snack('.box', '#score', 360, 360, 36);
+snack.init();
+</script>
+
+</html>
