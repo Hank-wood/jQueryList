@@ -189,8 +189,8 @@ Snack.prototype = {
     },
     drawFood: function() {
         $('td').removeClass('food')
-        var foodx = this.getRandom(this.size),
-            foody = this.getRandom(this.size);
+        var foodx = this.getRandom(this.size-2),
+            foody = this.getRandom(this.size-2);
         for (var i in this.snackArr) {
             if (this.snackArr[i][0] == foodx && this.snackArr[i][1] == foody) {
                 foodx = this.getRandom(this.size),
