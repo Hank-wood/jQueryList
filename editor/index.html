@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>simple editor</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }
+    
+    .clearfix:after,
+    clearfix:before {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    
+    textarea {
+        width: 830px;
+        height: 300px;
+        overflow: auto;
+    }
+    
+    .editor {
+        width: 830px;
+        margin: 100px auto;
+        border: 1px solid #ddd;
+    }
+    
+    .editor-btn {
+        /*         height: 40px;
+        line-height: 40px; */
+        border-bottom: 1px solid #ddd;
+        position: relative;
+    }
+    
+    .editor-btn li {
+        float: left;
+        padding: 0 10px;
+        border-right: 1px solid #ddd;
+        /* position: relative */
+    }
+    
+    .nobr {
+        border-right: none!important
+    }
+    
+    .editor-btn li span {
+        text-align: center;
+        cursor: pointer;
+        font-size: 12px;
+        color: rgb(20, 68, 101);
+        font-weight: bold;
+        display: inline-block;
+        padding: 10px 5px;
+    }
+    
+    .editor-btn li span.active {
+        background-color: rgb(20, 68, 101);
+        color: #fff;
+    }
+    
+    .editor-btn li select {
+        display: inline-block;
+        padding: 0px 5px;
+        margin: 10px 0px
+    }
+    
+    .title {
+        font-size: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+        height: 20px;
+        line-height: 20px
+    }
+    
+    table {
+        border-collapse: collapse;
+        border: 1px solid #000;
+        margin: 10px;
+        cursor: pointer;
+    }
+    
+    td {
+        width: 10px;
+        height: 10px;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+    }
+    
+    .colorpanel {
+        position: absolute;
+        top: 35px;
+        width: 100px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        z-index: 9999;
+        display: none
+    }
+    
+    .colorpanel.active {
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="editor">
+        <div class="editor-btn clearfix">
+            <ul>
+                <li class="btn-item simultaneously">
+                    <span ec="bold">粗体</span>
+                    <span ec="italic">斜体</span>
+                    <span ec="underline">下划线</span>
+                </li>
+                <li class="btn-item">
+                    <span ec="justifyleft">左</span>
+                    <span ec="justifycenter">中</span>
+                    <span ec="justifyright">右</span>
+                </li>
+                <li class="btn-item">
+                    <span ec="insertorderedlist">有序</span>
+                    <span ec="insertunorderedlist">无序</span>
+                </li>
+                <li class="btn-item fontcolor">
+                    <span ec="ForeColor" class="color">字体颜色</span>
+                    <!-- <span ec="backColor" class="backcolor">字体背景色</span> -->
+                </li>
+                <li class="btn-item">
+                    <span ec="createLink" class="link">链接</span>
+                    <!-- <span ec="insertImage">插入表情</span> -->
+                </li>
+                <li class="btn-item">
+                    <select class="font-size" ec='fontsize'>
+                        <option>1</option>
+                        <option>2</option>
+                        <option selected="selected">3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                    </select>
+                    <select class="font-family" ec="fontName">
+                        <option>黑体</option>
+                        <option>宋体</option>
+                        <option>楷体</option>
+                        <option>隶书</option>
+                        <option>幼圆</option>
+                        <option>Arial</option>
+                        <option>Ceorgia</option>
+                        <option>Verdana</option>
+                        <option>Helvetica</option>
+                    </select>
+                </li>
+                <li class="btn-item nobr">
+                    <span ec="copy">复制</span>
+                    <span ec="cut">剪切</span>
+                </li>
+            </ul>
+            <div class="colorpanel">
+                <div class="title">请选择颜色</div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <textarea spellcheck="false" class="editor-con"></textarea>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+function Editor(iTarget) {
+    this.editorCon = $(iTarget);
+    this.iframe = null;
+    this.iframeDoc
+}
+Editor.prototype = {
+    init: function() {
+        this.createIframe();
+        this.handler();
+        this.colorPicker()
+    },
+    createIframe: function() {
+        var iframe = $('<iframe></iframe>');
+        this.iframe = iframe;
+        iframe.css({
+            width: this.editorCon.width() + 'px',
+            height: this.editorCon.height() + 'px',
+            display: 'block',
+            scrolling: 'yes'
+        })
+        iframe.attr('frameBorder', 0)
+        this.editorCon.parent().append(iframe)
+        this.editorCon.css('display', 'none');
+        this.iframeDoc = iframe[0].contentWindow.document || iframe[0].contentDocument;
+        this.iframeDoc.designMode = "on";
+    },
+    execCommand: function(command, show, argument) {
+        this.iframeDoc.execCommand(command, show, argument);
+    },
+    handler: function() {
+        var that = this,
+            command;
+        // click
+        $('.btn-item').on('click', 'span', function() {
+                that.iframeDoc.body.focus();
+                command = $(this).attr('ec');
+                if ($(this).parent().hasClass('simultaneously')) {
+                    that.execCommand(command, false, null);
+                    $(this).toggleClass('active');
+                } else if ($(this).parent().hasClass('fontcolor')) {
+                    $(this).toggleClass('active');
+                    that.pos($(this))
+                    if($(this).hasClass('active')){
+                    	$('.colorpanel').addClass('active');
+                    }else{
+                    	$('.colorpanel').removeClass('active');
+                    }
+                    $('.colorpanel').on('click', 'td', function() {
+                        var colorVal = $(this).attr('title');
+                        $('.colorpanel').removeClass('active')
+                        that.execCommand(command, false, colorVal);
+                    })
+                    
+                } else {
+                    if ($(this).hasClass('link')) {
+                        var name = that.prompt();
+                        that.execCommand(command, false, name);
+                    } else {
+                        $(this).toggleClass('active').siblings().removeClass('active');
+                        that.execCommand(command, false, null);
+                    }
+                }
+            })
+            // select
+        $('.font-size').on('change', function() {
+                var val = $(this).find('option:selected').text();
+                command = $(this).attr('ec');
+                that.iframeDoc.execCommand(command, false, val);
+            })
+            // font-family
+        $('.font-family').on('change', function() {
+            var val = $(this).find('option:selected').text();
+            command = $(this).attr('ec');
+            that.iframeDoc.execCommand(command, false, val);
+        })
+    },
+    colorRandom: function() {
+        var colorElements = ['00', '33', '66', '99', 'CC', 'FF']
+        var color = "#";
+        for (var i = 0; i < 3; i++) {
+            color += colorElements[Math.floor(Math.random() * 6)];
+        }
+        return color;
+
+    },
+    colorPicker: function() {
+        var $td = $('.colorpanel td');
+        for (var i = 0; i < $td.length; i++) {
+            var color = this.colorRandom()
+            $td.eq(i).css({
+                backgroundColor: color
+            }).attr('title', color)
+
+        }
+    },
+    pos: function(target) {
+        var L = target.position().left;
+        $('.colorpanel').css({
+            left: L
+        })
+    },
+    prompt: function() {
+        return prompt('请输入链接', '')
+    }
+}
+var editor = new Editor('.editor-con');
+editor.init();
+</script>
+
+</html>
